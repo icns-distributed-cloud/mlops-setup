@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  # Preprocessing
+  data.api:
+    image: icnslab/mlops-data-preprocessing:0.14
+    container_name: data.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - /home/icns/MLOps/Files/datasets:/usr/src/app/datasets
+      - /home/icns/MLOps/Files/outputs:/usr/src/app/outputs
+    restart: always
+
+
+  back.api:
+    dns:
+      - 8.8.8.8
+    image: icnslab/mlops-dashboard-api:0.2
+    container_name: back.api
+    ports:
+      - "18088:18088"
+    volumes:
+      - /home/icns/MLOps/Files/datasets:/home/icns/MLOps/Files/datasets
+    restart: always
+
+  front.api:
+    image: icnslab/mlops-dashboard-front:0.13
+    container_name: front.api
+    ports:
+      - "8081:8081"
+    restart: always
+
+
+
+
+  # Nginx Web Engine
+  nginx.front:
+    image: nginx:latest
+    container_name: nginx.front
+    ports:
+      - "80:80"
+    volumes:
+      - /home/icns/MLOps/default.conf:/etc/nginx/conf.d/default.conf
+      - /home/icns/MLOps/Files:/Files
+    restart: always
+    depends_on:
+      - data.api
+      - back.api
