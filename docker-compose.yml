@@ -13,7 +13,7 @@ services:
       - /home/icns/MLOps/Files/outputs:/usr/src/app/outputs
     restart: always
 
-
+  # Backend
   back.api:
     dns:
       - 8.8.8.8
@@ -25,15 +25,13 @@ services:
       - /home/icns/MLOps/Files/datasets:/home/icns/MLOps/Files/datasets
     restart: always
 
+  # Frontend
   front.api:
     image: icnslab/mlops-dashboard-front:1.0
     container_name: front.api
     ports:
       - "8081:8081"
     restart: always
-
-
-
 
   # Nginx Web Engine
   nginx.front:
