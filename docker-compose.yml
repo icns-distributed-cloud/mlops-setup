@@ -4,7 +4,7 @@ services:
 
   # Preprocessing
   data.api:
-    image: icnslab/mlops-data-preprocessing:0.14
+    image: icnslab/mlops-data-preprocessing:1.0
     container_name: data.api
     ports:
       - "8000:8000"
@@ -17,7 +17,7 @@ services:
   back.api:
     dns:
       - 8.8.8.8
-    image: icnslab/mlops-dashboard-api:0.2
+    image: icnslab/mlops-dashboard-api:1.0
     container_name: back.api
     ports:
       - "18088:18088"
@@ -26,7 +26,7 @@ services:
     restart: always
 
   front.api:
-    image: icnslab/mlops-dashboard-front:0.13
+    image: icnslab/mlops-dashboard-front:1.0
     container_name: front.api
     ports:
       - "8081:8081"
